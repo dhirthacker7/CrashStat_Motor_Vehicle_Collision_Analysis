@@ -9,8 +9,6 @@ The project implements a **full data warehouse solution** with:
 - A **SQL Server** dimensional model
 - **Interactive dashboards** in Power BI (and Tableau prototypes)
 
----
-
 ## 🎯 Objectives
 
 - Quantify accident volumes across three cities
