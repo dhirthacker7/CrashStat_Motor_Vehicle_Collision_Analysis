@@ -118,4 +118,4 @@ CrashStat follows a **Medallion data warehouse architecture**:
 ## Author
 
 **[Dhir Thacker](https://www.linkedin.com/in/dhirthacker7/)**  
-Data & Business Analyst · ETL & BI · Traffic Safety Analytics
+Data and Business Analyst · ETL amd BI
