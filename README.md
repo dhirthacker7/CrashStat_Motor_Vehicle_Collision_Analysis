@@ -36,6 +36,8 @@ CrashStat analyzes motor vehicle collision data from New York, Chicago, and Aust
 
 ## **Implementation**
 
+![Architecture_Diagram](Architecture_Diagram.png)
+
 ### **Phase 1: Data Profiling and Staging**
 - Profiled data using Python (ydata-profiling) and Alteryx
 - Identified quality issues: missing values, inconsistent formats, duplicates
