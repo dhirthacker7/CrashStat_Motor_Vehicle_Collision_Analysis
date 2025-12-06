@@ -83,13 +83,6 @@ CrashStat follows a **Medallion data warehouse architecture**:
 
 ---
 
-## 📊 Dashboards
-
-**Power BI Report:**  
-[Open CrashStat Power BI Dashboard](https://app.powerbi.com/groups/me/reports/dda3d0e1-ed89-47eb-a83d-4058f6991367/ReportSection?experience=power-bi)
-
----
-
 ### 1. Overview & Temporal Analysis
 
 - Total accident counts across three cities (**~3.04M collisions**)
@@ -160,6 +153,13 @@ CrashStat delivers several actionable safety insights across the three cities:
 
 - **Severity & Motorist Impact**  
   Analysis of injuries and fatalities at both **city and aggregate levels** surfaces high-risk locations that warrant targeted **safety campaigns and infrastructure changes**.
+
+---
+
+## 📊 Dashboards
+
+**Power BI Report:**  
+[Open CrashStat Power BI Dashboard](https://app.powerbi.com/groups/me/reports/dda3d0e1-ed89-47eb-a83d-4058f6991367/ReportSection?experience=power-bi)
 
 ---
 
