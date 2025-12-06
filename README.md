@@ -1,100 +1,169 @@
-# **CrashStat: Motor Vehicle Collision Data Warehouse**
+# 🚗 CrashStat: Motor Vehicle Collision Data Warehouse
 
-CrashStat analyzes motor vehicle collision data from New York, Chicago, and Austin to identify accident patterns, risk factors, and safety insights. The project implements a complete data warehouse solution with ETL pipelines and interactive dashboards to answer critical questions about traffic safety.
+CrashStat analyzes motor vehicle collision data from **New York, Chicago, and Austin** to identify accident patterns, risk factors, and safety insights.  
+
+The project implements a **full data warehouse solution** with:
+
+- A **Medallion data architecture (Bronze → Silver → Gold)**
+- **ETL pipelines** built in Talend
+- A **SQL Server** dimensional model
+- **Interactive dashboards** in Power BI (and Tableau prototypes)
 
 ---
 
-## **Objectives**
+## 🎯 Objectives
 
 - Quantify accident volumes across three cities
 - Identify top high-risk areas and most fatal locations
 - Analyze injury and fatality statistics by city
 - Assess pedestrian involvement and safety
 - Examine temporal patterns (time of day, day of week, seasonality)
-- Identify common contributing factors
+- Identify common contributing factors (e.g., driver behavior, environmental conditions)
 
 ---
 
-## **Data Sources**
+## 📂 Data Sources
 
-### **New York City**
-- [NYC Open Data](https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95)
+### New York City
+- [NYC Open Data – Motor Vehicle Collisions](https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95)
 
-### **Chicago**
-- [City of Chicago Data Portal](https://data.cityofchicago.org/Transportation/Traffic-Crashes-Crashes/85ca-t3if)
+### Chicago
+- [City of Chicago – Traffic Crashes](https://data.cityofchicago.org/Transportation/Traffic-Crashes-Crashes/85ca-t3if)
 
-### **Austin**
-- [City of Austin Data](https://data.austintexas.gov/Transportation-and-Mobility/Austin-Crash-Report-Data-Crash-Level-Records/y2wy-tgr5)
+### Austin
+- [City of Austin – Crash Report Data](https://data.austintexas.gov/Transportation-and-Mobility/Austin-Crash-Report-Data-Crash-Level-Records/y2wy-tgr5)
 
 ---
 
-## **Implementation**
+## 🧱 Architecture & Medallion Design
 
 ![Architecture_Diagram](Architecture_Diagram.png)
 
-### **Phase 1: Data Profiling and Staging**
-- Profiled data using Python (ydata-profiling) and Alteryx
-- Identified quality issues: missing values, inconsistent formats, duplicates
-- Created staging tables with audit columns in SQL Server
+CrashStat follows a **Medallion data warehouse architecture**:
 
-### **Phase 2: ETL Pipeline and Integration**
-- Built ETL workflows in Talend Studio
-- Standardized, cleansed, and transformed data
-- Loaded dimensional model with SCD Type 2 implementation
-- Validated data integrity with SQL queries
+- **Bronze (Raw / Staging)**  
+  Ingest raw collision data from city portals into staging tables with minimal transformation.
 
-### **Phase 3: Business Intelligence**
-- Developed dashboards in Power BI and Tableau
-- Created interactive visualizations for all analytical goals
-- Implemented drill-down and filtering capabilities
+- **Silver (Cleansed / Standardized)**  
+  Clean, standardize, and integrate data across cities into conformed structures with consistent schemas.
+
+- **Gold (Dimensional / Analytics)**  
+  Load a **star-schema dimensional model** (facts + dimensions with SCD Type 2) optimized for analytics and dashboards.
 
 ---
 
-## **Dashboard**
-[Power BI](https://app.powerbi.com/groups/me/reports/dda3d0e1-ed89-47eb-a83d-4058f6991367/ReportSection?experience=power-bi)
-### **1. Overview and Temporal Analysis**
-Displays total accident counts by city (3.04M total), severity breakdown (4,964 injuries, 893K total injury count), and time-based analysis showing seasonal trends. The central visualization reveals peak accident periods throughout the year with injury vs. fatal comparisons.
-<img width="1200" height="672" alt="image" src="https://github.com/user-attachments/assets/326a72ea-ff81-4713-af36-9cee3a8aed84" />
+## ⚙️ Implementation
+
+### 🥉 Bronze Layer – Data Profiling & Staging
+
+- Profiled raw data using **Python (`ydata-profiling`)** and **Alteryx**  
+- Identified quality issues: missing values, inconsistent formats, duplicates  
+- Created **staging (Bronze) tables** in **SQL Server** with audit columns (source, load time, batch ID)
 
 ---
 
-### **2. Geographic and Pedestrian Analysis**
-Features an interactive map highlighting collision hotspots across the three cities, motor vehicle deaths and injuries by location, and pedestrian accident trends over time. Shows concentration of accidents in urban centers and tracks pedestrian involvement patterns.
-<img width="1403" height="792" alt="image" src="https://github.com/user-attachments/assets/32bee90f-4792-4fdd-92d5-2459d2084aa0" />
+### 🥈 Silver Layer – ETL & Integration
 
-
----
-
-### **3. Contributing Factors Analysis**
-Comprehensive breakdown of the most common contributing factors leading to accidents. Lists top causes including driver inattention, failure to yield, and following too closely. Shows accident counts by data source and identifies the top 5 street names with highest accident frequency (1,695 motor vehicle deaths, 466K person vehicle injuries).
-<img width="1197" height="670" alt="image" src="https://github.com/user-attachments/assets/3e49fa74-c8b2-4d8a-ba1c-c236bbe73b1e" />
-
----
-
-## **Technologies Used**
-
-| Category | Technologies |
-|----------|-------------|
-| **Data Profiling** | Python (ydata-profiling), Alteryx |
-| **ETL** | Talend Studio |
-| **Database** | SQL Server, Microsoft Excel |
-| **Visualization** | Power BI |
-| **Version Control** | Git, GitHub |
+- Built **ETL workflows in Talend Studio** to:
+  - Standardize column names and formats across NYC, Chicago, and Austin
+  - Cleanse and de-duplicate records
+  - Harmonize key dimensions (location, date/time, severity, contributing factors)
+- Integrated city-specific datasets into **conformed Silver tables**
+- Implemented **SCD Type 2** for slowly changing dimensions (e.g., location attributes)
+- Validated data integrity with targeted **SQL checks** (row counts, referential integrity, null checks)
 
 ---
 
-## *Key Insights*
-Through comprehensive analysis of collision data across three major cities, CrashStat has uncovered critical findings:
+### 🥇 Gold Layer – Dimensional Model & BI
 
-- **Geographic Hotspots:** Identified top accident-prone areas in New York, Chicago, and Austin, with concentrated clusters in downtown corridors and major intersections
-- **Temporal Patterns:** Peak accident periods occur during evening rush hours (5-7 PM) and Friday evenings, with distinct weekday vs. weekend patterns
-- **Seasonal Trends:** Higher collision frequency during winter months, with weather conditions significantly impacting accident rates
-- **Contributing Factors:** Most common causes include driver inattention/distraction, failure to yield right of way, following too closely, and unsafe speed
-- **Pedestrian Safety:** Analyzed pedestrian involvement rates across cities, revealing critical zones requiring enhanced safety measures
-- **Severity Analysis:** Examined injury and fatality statistics at both city-specific and aggregate levels, identifying high-risk locations requiring immediate intervention
-- **Motorist Impact:** Tracked injury and death rates among motorists, providing insights for targeted safety campaigns
+- Modeled a **dimensional warehouse** in SQL Server (fact tables + dimensional tables)
+- Exposed **Gold-layer tables** to reporting tools for analytics
+- Developed dashboards in **Power BI** (and Tableau prototypes) to answer the project objectives
+- Implemented **drill-down, slicing, and filtering** for city, time period, severity, and contributing factors
 
 ---
 
-## **Author**   
-[Dhir Thacker](https://www.linkedin.com/in/dhirthacker7/)
+## 📊 Dashboards
+
+**Power BI Report:**  
+[Open CrashStat Power BI Dashboard](https://app.powerbi.com/groups/me/reports/dda3d0e1-ed89-47eb-a83d-4058f6991367/ReportSection?experience=power-bi)
+
+---
+
+### 1. Overview & Temporal Analysis
+
+- Total accident counts across three cities (**~3.04M collisions**)
+- Severity breakdown (e.g., injuries vs. fatalities; **4,964 injuries, 893K total injury count**)
+- Time-based analysis by:
+  - Hour of day
+  - Day of week
+  - Month/season  
+- Highlights peak accident periods and compares **injury vs. fatal** trends over time
+
+<img width="1200" height="672" alt="Overview & Temporal Analysis" src="https://github.com/user-attachments/assets/326a72ea-ff81-4713-af36-9cee3a8aed84" />
+
+---
+
+### 2. Geographic & Pedestrian Analysis
+
+- Interactive map of **collision hotspots** across New York, Chicago, and Austin
+- Visuals for **motor vehicle deaths and injuries by location**
+- Trends in **pedestrian accidents** over time
+- Highlights high-density urban corridors and zones with elevated pedestrian risk
+
+<img width="1403" height="792" alt="Geographic & Pedestrian Analysis" src="https://github.com/user-attachments/assets/32bee90f-4792-4fdd-92d5-2459d2084aa0" />
+
+---
+
+### 3. Contributing Factors Analysis
+
+- Breakdown of **top contributing factors** (e.g., driver inattention, failure to yield, following too closely, unsafe speed)
+- Comparison of accident counts by **data source / city**
+- Identification of **top 5 streets** with highest accident frequency  
+- Severity metrics, including **1,695 motor vehicle deaths and 466K person-vehicle injuries**
+
+<img width="1197" height="670" alt="Contributing Factors Analysis" src="https://github.com/user-attachments/assets/3e49fa74-c8b2-4d8a-ba1c-c236bbe73b1e" />
+
+---
+
+## 🛠️ Technologies Used
+
+| Category            | Technologies                                       |
+|---------------------|----------------------------------------------------|
+| **Data Profiling**  | Python (`ydata-profiling`), Alteryx               |
+| **ETL**             | Talend Studio                                     |
+| **Data Warehouse**  | SQL Server (Medallion: Bronze / Silver / Gold)    |
+| **Data Staging**    | SQL Server, Excel exports                         |
+| **Visualization**   | Power BI, Tableau (prototype views)               |
+| **Version Control** | Git, GitHub                                       |
+
+---
+
+## 🔍 Key Insights
+
+CrashStat delivers several actionable safety insights across the three cities:
+
+- **Geographic Hotspots**  
+  Accident clusters are concentrated around **downtown cores, major intersections, and arterial roads**, highlighting priority zones for interventions.
+
+- **Temporal Patterns**  
+  Peak accidents occur during **evening rush hours (5–7 PM)** and **Friday evenings**, with clear differences between **weekday and weekend** trends.
+
+- **Seasonal Trends**  
+  Higher collision frequency observed in **winter months**, where weather conditions (snow, rain, low visibility) amplify risk.
+
+- **Contributing Factors**  
+  Leading causes include **driver inattention/distraction**, **failure to yield right of way**, **following too closely**, and **unsafe speed**.
+
+- **Pedestrian Safety**  
+  Certain corridors show elevated **pedestrian involvement**, indicating areas where crosswalk design, signaling, or traffic calming could be improved.
+
+- **Severity & Motorist Impact**  
+  Analysis of injuries and fatalities at both **city and aggregate levels** surfaces high-risk locations that warrant targeted **safety campaigns and infrastructure changes**.
+
+---
+
+## 👤 Author
+
+**[Dhir Thacker](https://www.linkedin.com/in/dhirthacker7/)**  
+Data & Business Analyst | ETL & BI | Traffic Safety Analytics
