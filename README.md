@@ -28,12 +28,6 @@ CrashStat analyzes motor vehicle collision data from New York, Chicago, and Aust
 
 ---
 
-### **Dimensional Model**
-
-![Dimensional_Model](Dimensional_Model.png)
-
----
-
 ## **Implementation**
 
 ![Architecture_Diagram](Architecture_Diagram.png)
