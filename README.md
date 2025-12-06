@@ -31,7 +31,7 @@ The project implements a **full data warehouse solution** with:
 **Austin**  
 - [City of Austin – Crash Report Data](https://data.austintexas.gov/Transportation-and-Mobility/Austin-Crash-Report-Data-Crash-Level-Records/y2wy-tgr5)
 
-## Architecture & Medallion Design
+## Architecture
 
 ![Architecture_Diagram](Architecture_Diagram.png)
 
