@@ -29,9 +29,8 @@ CrashStat analyzes motor vehicle collision data from New York, Chicago, and Aust
 ---
 
 ### **Dimensional Model**
-- **Fact Table**: `fact_collision`
-- **Dimensions**: `dim_date`, `dim_location`, `dim_vehicle`, `dim_contributing_factor`, `dim_person`
-- **Features**: Star schema, SCD Type 2, surrogate keys, audit columns
+
+[Dimensional_Model](Dimensional_Model.png)
 
 ---
 
